@@ -1,5 +1,7 @@
 # Wealth Simulator
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A modern web application for simulating investment growth over time. Calculate how your investments will grow based on initial capital, monthly contributions, expected returns, and various financial parameters.
 
 ## Features
@@ -70,3 +72,6 @@ The app uses CDN links for Tailwind CSS and Chart.js, so it works immediately.
 
 See [investment_app_requirements.md](./investment_app_requirements.md) for detailed requirements.
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
