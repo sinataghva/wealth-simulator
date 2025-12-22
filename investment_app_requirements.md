@@ -6,15 +6,14 @@
 A simple simulator that shows how an investment grows over time based on initial capital, monthly contributions, expected annual return, and duration.
 
 ### Layout
-- Left: input fields and sliders  
-- Right: summary text, one line chart, recap numbers  
+- Left: input fields  
+- Right: one line chart (top), summary text and recap numbers (bottom)  
 
 ### Inputs
 - Initial investment  
 - Monthly contribution  
 - Investment duration (years)  
 - Annual return (percent)  
-- Optional sliders mirroring each input for quick adjustments  
 
 ### Outputs
 - Final portfolio value  
@@ -78,4 +77,4 @@ A simple simulator that shows how an investment grows over time based on initial
 - Single page layout  
 - Instant recalculation on input change  
 - Clean modern UI, dark theme optional  
-- Currency selector for whole app  
+- Currency: EUR (fixed, French formatting)  
