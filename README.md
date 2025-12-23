@@ -62,6 +62,10 @@ See [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md) for detailed structure docume
 
 ## Getting Started
 
+### Live Demo
+
+- Wealth Simulator on GitHub Pages: https://sinataghva.github.io/wealth-simulator/
+
 1. Clone the repository
 2. Open `index.html` in a modern web browser
 3. No build step or installation required!
