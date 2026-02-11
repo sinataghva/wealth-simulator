@@ -7,7 +7,7 @@ A simple simulator that shows how an investment grows over time based on initial
 
 ### Layout
 - Left: input fields  
-- Right: one line chart (top), summary text and recap numbers (bottom)  
+- Right: one chart (top), summary text and recap numbers (bottom)  
 
 ### Inputs
 - Initial investment  
@@ -20,7 +20,7 @@ A simple simulator that shows how an investment grows over time based on initial
 - Total contributions  
 - Total gains  
 - Summary sentence  
-- Line chart with time on x axis and portfolio value on y axis  
+- Area chart: years on x-axis; portfolio value and total contributions (two areas), fr-FR formatting  
 
 ---
 
@@ -76,5 +76,11 @@ A simple simulator that shows how an investment grows over time based on initial
 
 - Single page layout  
 - Instant recalculation on input change  
-- Clean modern UI, dark theme optional  
-- Currency: EUR (fixed, French formatting)  
+- Clean modern UI; dark mode follows system preference  
+- Currency: EUR (fixed, French formatting — fr-FR)  
+
+---
+
+## 5. Implementation Note (MVP)
+
+The current MVP is implemented with **React**, **Vite**, **TypeScript**, **Tailwind CSS**, and **Recharts**. See [README.md](./README.md) and [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md) for build and run instructions.

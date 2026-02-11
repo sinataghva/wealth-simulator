@@ -4,16 +4,28 @@
 
 ```
 wealth-simulator/
-├── index.html                 # Main HTML entry point
-├── css/
-│   └── styles.css            # Custom styles (if needed beyond Tailwind)
-├── js/
-│   ├── main.js               # Application entry point, initialization
-│   ├── calculator.js         # Investment calculation logic
-│   ├── chart.js              # Chart.js wrapper and chart rendering
-│   ├── ui.js                 # UI updates, DOM manipulation, event handlers
-│   └── utils.js              # Currency formatting, number formatting, helpers
-├── assets/                   # Images, icons (if needed)
+├── index.html              # Vite entry point, root #root div, dark-mode init script
+├── src/
+│   ├── main.tsx            # React entry: createRoot, StrictMode, imports App + index.css
+│   ├── App.tsx             # Root component (renders Index page; no routing in MVP)
+│   ├── index.css           # Tailwind directives + global overrides (e.g. number input spinners)
+│   ├── lib/
+│   │   ├── calculator.ts   # Investment growth calculation (compound then contribution)
+│   │   └── utils.ts        # Formatting (fr-FR), currency, numbers, summary sentence
+│   ├── components/
+│   │   ├── InputField.tsx  # Reusable numeric input (label, prefix/suffix, underline style)
+│   │   ├── InvestmentChart.tsx  # Recharts area chart (portfolio + contributions), tooltip, legend
+│   │   └── SummaryCard.tsx # Single summary metric (label, value, optional highlight)
+│   └── pages/
+│       └── Index.tsx       # Main page: state, inputs, chart, summary layout
+├── public/                 # Static assets (if any)
+├── package.json
+├── vite.config.ts          # Vite + React plugin, path alias @ → src/
+├── tsconfig.json           # TypeScript project config
+├── tsconfig.app.json
+├── tsconfig.node.json
+├── tailwind.config.ts       # Tailwind content, darkMode: class
+├── postcss.config.js
 ├── investment_app_requirements.md
 ├── README.md
 └── .gitignore
@@ -21,58 +33,44 @@ wealth-simulator/
 
 ## Module Responsibilities
 
-### `index.html`
-- Main HTML structure
-- Links to Tailwind CSS (CDN)
-- Links to Chart.js (CDN)
-- Imports main.js as ES6 module
+### Entry and root
 
-### `js/main.js`
-- Initializes the application
-- Sets up event listeners
-- Coordinates between modules
-- Handles app lifecycle
+| File | Role |
+|------|------|
+| `index.html` | Vite entry; `<div id="root">`; inline script to set `dark` class from `prefers-color-scheme`. |
+| `src/main.tsx` | Mounts React app with `createRoot`, wraps in `StrictMode`, imports `App` and `index.css`. |
+| `src/App.tsx` | Root component; renders the main page (`Index`). No router in MVP. |
+| `src/index.css` | `@tailwind base/components/utilities`; global styles (e.g. hide number input spinners). |
 
-### `js/calculator.js`
-- Pure calculation functions
-- Investment growth calculations
-- Compound interest logic
-- Returns data structures (not DOM manipulation)
-- Easy to test and migrate to Svelte
+### Library (`src/lib/`)
 
-### `js/chart.js`
-- Chart.js initialization
-- Chart configuration
-- Chart update functions
-- Chart data transformation
+| File | Role |
+|------|------|
+| `calculator.ts` | Pure functions: `calculateInvestmentGrowth(initial, monthly, annualReturn, years)`; compound-then-contribution logic; returns `{ chartData, finalValue, totalContributions, totalGains }`. |
+| `utils.ts` | `formatCurrency`, `formatNumber`, `formatPercentage` (fr-FR); `generateSummarySentence`; validation/date helpers. |
 
-### `js/ui.js`
-- DOM element selection
-- UI state updates
-- Input/slider synchronization
-- Summary text generation
-- Currency formatting display
+### Components (`src/components/`)
 
-### `js/utils.js`
-- Currency formatting utilities
-- Number formatting
-- Date/time helpers
-- Validation helpers
+| Component | Role |
+|-----------|------|
+| `InputField.tsx` | Controlled number input with label; optional `prefix` (e.g. €) or `suffix` (e.g. years, %); underline styling; responsive. |
+| `InvestmentChart.tsx` | Recharts `AreaChart`: two areas (portfolio value, contributions), custom tooltip (year, value, contributions, interest gains), custom legend; Y-axis and tooltip use fr-FR currency. |
+| `SummaryCard.tsx` | Displays one metric: label + value; optional `highlight` for primary value (e.g. final portfolio). |
+
+### Pages (`src/pages/`)
+
+| File | Role |
+|------|------|
+| `Index.tsx` | Main screen: `useState` for initial investment, monthly contribution, duration, annual return; `useMemo` to run calculator; layout: left column (inputs), right column (chart + summary); summary sentence + three `SummaryCard`s. |
 
 ## Design Principles
 
-1. **Separation of Concerns**: Logic, UI, and charting are separate
-2. **Pure Functions**: Calculator functions are pure (no side effects)
-3. **Modular**: Each file has a single responsibility
-4. **Svelte-Ready**: Structure mirrors component organization for easy migration
-5. **No Build Step**: Uses CDN for Tailwind and Chart.js (can add build later)
+1. **Separation of concerns** – Logic in `lib/`, UI in components and pages.
+2. **Pure calculator** – `calculator.ts` has no side effects; easy to test and reuse.
+3. **Single responsibility** – Each component and lib module has a clear, narrow role.
+4. **Locale** – All user-facing numbers and currency use fr-FR (see `utils.ts` and chart formatting).
+5. **Build and deploy** – Vite for dev/build; GitHub Actions used to build and deploy `dist/` to GitHub Pages.
 
-## Future Svelte Migration Path
+## Migration Note
 
-When migrating to Svelte:
-- `calculator.js` → `lib/calculator.ts` (reusable)
-- `utils.js` → `lib/utils.ts` (reusable)
-- `ui.js` → Svelte components (Input.svelte, Summary.svelte, etc.)
-- `chart.js` → Chart.svelte component
-- `main.js` → App.svelte
-
+This project was migrated from a vanilla JS version (HTML + ES modules + Chart.js). The previous structure is described in `COMPARISON.md`. Core logic lives in `src/lib/`; the previous `js/calculator.js` and `js/utils.js` have been replaced by `src/lib/calculator.ts` and `src/lib/utils.ts` with the same responsibilities and fr-FR formatting.
