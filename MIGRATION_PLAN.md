@@ -150,10 +150,9 @@ wealth-simulator/
 - [x] Test workflow runs successfully
 
 ### 5.2 GitHub Pages Configuration
-- [ ] **Important**: Change GitHub Pages source from "branch" to "GitHub Actions"
-  - Settings → Pages → Source: "GitHub Actions"
-- [ ] Verify deployment works automatically on push
-- [ ] **Note**: With Vite, we need to build first, so GitHub Actions is required (can't just push static files anymore)
+- [x] GitHub Pages source set to "Deploy from a branch" → `gh-pages` / `/ (root)`
+- [x] Verify deployment works automatically on push
+- [x] App is live at https://sinataghva.github.io/wealth-simulator/
 
 ## Phase 6: Cleanup
 
@@ -169,27 +168,23 @@ wealth-simulator/
 - [ ] Mention migration details in final commit message
 
 ### 6.3 Update .gitignore
-- [ ] Add `node_modules/`
-- [ ] Add `dist/` (Vite build output - don't commit)
-- [ ] Add `.env` files
+- [x] `node_modules/` already ignored
+- [x] `dist/` already ignored
+- [x] `.env` files already ignored
 
 ## Phase 7: Testing & Verification
 
 ### 7.1 Functionality
-- [ ] Test all inputs update correctly
-- [ ] Verify calculations match expected results
-- [ ] Test chart displays correctly (two areas)
-- [ ] Verify fr-FR formatting throughout
-- [ ] Test responsive design
+- [x] Test all inputs update correctly
+- [x] Verify calculations match expected results
+- [x] Test chart displays correctly (two areas)
+- [x] Verify fr-FR formatting throughout
+- [x] Test responsive design
 
 ### 7.2 Build & Deploy
-- [ ] Test `npm run build` works
-- [ ] Test `npm run preview` works
-- [ ] **Set up GitHub Actions** for automatic build and deploy
-  - Create `.github/workflows/deploy.yml`
-  - Build on push to main
-  - Deploy `dist/` folder to GitHub Pages
-- [ ] Verify GitHub Pages deployment works automatically
+- [x] `npm run build` works
+- [x] GitHub Actions workflow builds and deploys on push to main
+- [x] GitHub Pages live at https://sinataghva.github.io/wealth-simulator/
 
 ## Key Differences from Lovable
 
@@ -211,6 +206,12 @@ wealth-simulator/
 - **New files**: ~15-20 files (React components, configs) + `.github/workflows/deploy.yml`
 - **Modified files**: README.md, PROJECT_STRUCTURE.md, .gitignore
 - **Deleted files**: ~5 files (old JS files) + COMPARISON.md + MIGRATION_PLAN.md (after completion)
+
+## Future Improvements
+
+- [ ] **Switch to GitHub Actions Pages source** (official method): replace `peaceiris/actions-gh-pages` with `actions/upload-pages-artifact` + `actions/deploy-pages`; change Pages source to "GitHub Actions" — eliminates the `gh-pages` branch and gives per-run deployment history.
+- [ ] Add `npm run preview` step to CI for smoke testing before deploy.
+- [ ] Run `npm audit fix` to resolve moderate vulnerability.
 
 ## Success Criteria
 
